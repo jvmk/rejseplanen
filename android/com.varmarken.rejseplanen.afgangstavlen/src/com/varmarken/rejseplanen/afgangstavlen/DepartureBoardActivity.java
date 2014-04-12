@@ -1,9 +1,20 @@
 package com.varmarken.rejseplanen.afgangstavlen;
 
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.List;
+
+import com.varmarken.rejseplanen.afgangstavlen.model.Stop;
+import com.varmarken.rejseplanen.afgangstavlen.webclient.HttpWebClient;
+import com.varmarken.rejseplanen.afgangstavlen.webclient.IWebClientCallback;
+import com.varmarken.rejseplanen.afgangstavlen.webclient.LocationJSONResponseParser;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -12,10 +23,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DepartureBoardActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+	private IWebClientCallback<List<Stop>> stopSearchCallback = new IWebClientCallback<List<Stop>>() {
+
+		@Override
+		public void onSuccess(List<Stop> resultData) {
+			System.out.println("onSuccess invoked");
+			// TODO update list view
+		}
+
+		@Override
+		public void onFailure(Exception errorData) {
+			System.out.println("onFailure invoked");
+			// TODO handle error.
+		}
+	};
+	
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -40,14 +67,49 @@ public class DepartureBoardActivity extends Activity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
-
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+    	this.setIntent(intent);
+    	this.handleIntent(intent);
+    }
+    
+    private void handleIntent(Intent intent) {
+    	if(Intent.ACTION_SEARCH.equals(intent.getAction())) {
+    		this.performSearch(intent.getStringExtra(SearchManager.QUERY));
+    	}
+    }
+    
+    private void performSearch(String searchString) {
+//    	Toast.makeText(this, "Performing search...", Toast.LENGTH_SHORT).show();
+    	// TODO test code - make dynamic + cleaner
+    	String urlStr = "http://xmlopen.rejseplanen.dk/bin/rest.exe/location?input=";
+    	try {
+    		urlStr = urlStr + URLEncoder.encode(searchString, "UTF-8") + "&format=json";
+        	// String result = locationServiceBase + "?input="
+        	// + URLEncoder.encode(userInput, "UTF-8");
+        	// return result;
+        	URL url = new URL(urlStr);
+        	HttpWebClient<List<Stop>> webClient = new HttpWebClient<>(url,
+        			new LocationJSONResponseParser(),
+        			this.stopSearchCallback);
+        	webClient.execute();
+    	} catch(Exception e) {
+    		System.out.println("buhuu");
+    	}
+    }
+    
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit();
+    	FragmentManager fm = this.getFragmentManager();
+    	fm.beginTransaction().replace(R.id.container, new StopSearchFragment()).commit();
+    	
+    	
+// update the main content by replacing fragments
+//        FragmentManager fragmentManager = getFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+//                .commit();
     }
 
     public void onSectionAttached(int number) {

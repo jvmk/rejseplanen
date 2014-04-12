@@ -2,9 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    >
 	    
 	<SearchView android:id="@+id/sw_stop_search"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"></SearchView>
+	    android:layout_height="wrap_content"
+	    android:iconifiedByDefault="false"
+	    />
+	<ListView android:id="@+id/lw_stops_found"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	    
+	</ListView>
 </LinearLayout>
