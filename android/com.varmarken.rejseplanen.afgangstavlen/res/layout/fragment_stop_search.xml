@@ -10,7 +10,7 @@
 	    android:layout_height="wrap_content"
 	    android:iconifiedByDefault="false"
 	    />
-	<ListView android:id="@+id/lw_stops_found"
+	<ListView android:id="@+id/lv_stops_found"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content">
 	    

@@ -3,11 +3,7 @@ package com.varmarken.rejseplanen.afgangstavlen;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
-
-import com.varmarken.rejseplanen.afgangstavlen.model.Stop;
-import com.varmarken.rejseplanen.afgangstavlen.webclient.HttpWebClient;
-import com.varmarken.rejseplanen.afgangstavlen.webclient.IWebClientCallback;
-import com.varmarken.rejseplanen.afgangstavlen.webclient.LocationJSONResponseParser;
+import java.util.Properties;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -23,17 +19,35 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.varmarken.rejseplanen.afgangstavlen.model.Stop;
+import com.varmarken.rejseplanen.afgangstavlen.webclient.HttpWebClient;
+import com.varmarken.rejseplanen.afgangstavlen.webclient.IWebClientCallback;
+import com.varmarken.rejseplanen.afgangstavlen.webclient.LocationJSONResponseParser;
 
 public class DepartureBoardActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+	/**
+	 * The base URL to the Rejseplanen's web API. Field is static as its value is to be loaded from a file.
+	 * In order to boost performance, we do not want to reload it every time the activty is recreated.
+	 */
+	private static String rejseplanenApiBaseURL = null;
+	
 	private IWebClientCallback<List<Stop>> stopSearchCallback = new IWebClientCallback<List<Stop>>() {
 
 		@Override
 		public void onSuccess(List<Stop> resultData) {
 			System.out.println("onSuccess invoked");
 			// TODO update list view
+			/*
+			 * Is the list view present or did the user switch to display departures for a favorite stop?
+			 */
+			View lv_stops_found = DepartureBoardActivity.this.findViewById(R.id.lv_stops_found);
+			// If present, we populate the list view.
+			if(lv_stops_found != null) {
+				
+			}
 		}
 
 		@Override
@@ -56,6 +70,12 @@ public class DepartureBoardActivity extends Activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Load the base URL if it wasn't already loaded.
+        if(rejseplanenApiBaseURL == null) {
+        	Properties props = AssetsPropertiesReader.loadProperties(this, "rejseplanen_webservices.properties");
+        	rejseplanenApiBaseURL = props.getProperty("base_url");
+        }
+        
         setContentView(R.layout.activity_departure_board);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -83,7 +103,7 @@ public class DepartureBoardActivity extends Activity
     private void performSearch(String searchString) {
 //    	Toast.makeText(this, "Performing search...", Toast.LENGTH_SHORT).show();
     	// TODO test code - make dynamic + cleaner
-    	String urlStr = "http://xmlopen.rejseplanen.dk/bin/rest.exe/location?input=";
+    	String urlStr = rejseplanenApiBaseURL + "/location?input=";
     	try {
     		urlStr = urlStr + URLEncoder.encode(searchString, "UTF-8") + "&format=json";
         	// String result = locationServiceBase + "?input="

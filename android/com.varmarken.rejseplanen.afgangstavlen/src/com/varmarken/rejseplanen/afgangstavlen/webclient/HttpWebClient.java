@@ -76,13 +76,4 @@ public class HttpWebClient<RESULT> extends AsyncTask<Void, Void, RESULT> {
 			this.callback.onFailure(this.error);
 		}
 	}
-
-	// private String buildRequestURL(String userInput)
-	// throws UnsupportedEncodingException {
-	// String locationServiceBase =
-	// "http://xmlopen.rejseplanen.dk/bin/rest.exe/location";
-	// String result = locationServiceBase + "?input="
-	// + URLEncoder.encode(userInput, "UTF-8");
-	// return result;
-	
 }

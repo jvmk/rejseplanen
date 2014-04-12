@@ -1,2 +1,3 @@
 /android/**/bin
 /android/**/gen
+/android/**/assets/rejseplanen_webservices.properties
