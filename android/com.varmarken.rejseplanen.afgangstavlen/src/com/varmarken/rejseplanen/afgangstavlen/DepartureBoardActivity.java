@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.varmarken.rejseplanen.afgangstavlen.model.Stop;
@@ -38,21 +39,21 @@ public class DepartureBoardActivity extends Activity
 
 		@Override
 		public void onSuccess(List<Stop> resultData) {
-			System.out.println("onSuccess invoked");
-			// TODO update list view
 			/*
 			 * Is the list view present or did the user switch to display departures for a favorite stop?
 			 */
 			View lv_stops_found = DepartureBoardActivity.this.findViewById(R.id.lv_stops_found);
 			// If present, we populate the list view.
 			if(lv_stops_found != null) {
-				
+				ListView lv = (ListView) lv_stops_found;
+				StopsSearchListAdapter adapter = new StopsSearchListAdapter(DepartureBoardActivity.this, resultData); 
+				lv.setAdapter(adapter);
+				adapter.notifyDataSetChanged();
 			}
 		}
 
 		@Override
 		public void onFailure(Exception errorData) {
-			System.out.println("onFailure invoked");
 			// TODO handle error.
 		}
 	};
