@@ -1,0 +1,7 @@
+NB: This project requires a file named "rejseplanen_webservices.properties" to be present in the assets folder of the project. This file should contain a key named "base_url", and the value of this key should point to the base URL of the Rejseplanen web ReST API.
+I.e. the file contents should simply be (excluding dashes):
+----------------------------------------
+base_url=http://some/base/url
+----------------------------------------
+
+Unfortunately, this file cannot be included in the project here on GitHub, as I am not allowed to make the URL publicly available. However, if you wish to make use of this project, you can simply email Rejseplanen and get the URL and then your own local .properties file. Contact information for Rejseplanen is made available at http://labs.rejseplanen.dk/labs/data__brug/rejseplanens_api/
