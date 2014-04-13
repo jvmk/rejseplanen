@@ -4,4 +4,4 @@ I.e. the file contents should simply be (excluding dashes):
 base_url=http://some/base/url
 ----------------------------------------
 
-Unfortunately, this file cannot be included in the project here on GitHub, as I am not allowed to make the URL publicly available. However, if you wish to make use of this project, you can simply email Rejseplanen and get the URL and then create your own local .properties file. Contact information for Rejseplanen is made available at http://labs.rejseplanen.dk/labs/data__brug/rejseplanens_api/
+Unfortunately, this file cannot be included in the project here on GitHub, as I am not allowed to make the URL publicly available. However, if you wish to make use of this project, you can simply email Rejseplanen and get the URL and then create your own local .properties file. More information available at: http://labs.rejseplanen.dk/labs/data__brug/rejseplanens_api/
