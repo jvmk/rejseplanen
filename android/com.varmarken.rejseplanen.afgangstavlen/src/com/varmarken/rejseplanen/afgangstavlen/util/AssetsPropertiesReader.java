@@ -1,4 +1,4 @@
-package com.varmarken.rejseplanen.afgangstavlen;
+package com.varmarken.rejseplanen.afgangstavlen.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

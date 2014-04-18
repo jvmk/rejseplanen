@@ -1,4 +1,4 @@
-package com.varmarken.rejseplanen.afgangstavlen.webclient;
+package com.varmarken.rejseplanen.afgangstavlen.network;
 
 /**
  * Interface providing callback methods that a class performing a web request

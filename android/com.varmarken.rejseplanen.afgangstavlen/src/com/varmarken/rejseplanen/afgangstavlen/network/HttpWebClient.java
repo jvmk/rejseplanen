@@ -1,4 +1,4 @@
-package com.varmarken.rejseplanen.afgangstavlen.webclient;
+package com.varmarken.rejseplanen.afgangstavlen.network;
 
 import java.net.HttpURLConnection;
 import java.net.URL;

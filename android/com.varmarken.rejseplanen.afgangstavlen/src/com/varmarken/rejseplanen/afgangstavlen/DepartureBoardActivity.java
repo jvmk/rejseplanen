@@ -21,10 +21,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.varmarken.rejseplanen.afgangstavlen.gui.StopSearchFragment;
+import com.varmarken.rejseplanen.afgangstavlen.gui.adapter.StopsSearchListAdapter;
 import com.varmarken.rejseplanen.afgangstavlen.model.Stop;
-import com.varmarken.rejseplanen.afgangstavlen.webclient.HttpWebClient;
-import com.varmarken.rejseplanen.afgangstavlen.webclient.IWebClientCallback;
-import com.varmarken.rejseplanen.afgangstavlen.webclient.LocationJSONResponseParser;
+import com.varmarken.rejseplanen.afgangstavlen.network.HttpWebClient;
+import com.varmarken.rejseplanen.afgangstavlen.network.IWebClientCallback;
+import com.varmarken.rejseplanen.afgangstavlen.network.LocationJSONResponseParser;
+import com.varmarken.rejseplanen.afgangstavlen.util.AssetsPropertiesReader;
 
 public class DepartureBoardActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {

@@ -1,4 +1,4 @@
-package com.varmarken.rejseplanen.afgangstavlen;
+package com.varmarken.rejseplanen.afgangstavlen.gui.adapter;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.varmarken.rejseplanen.afgangstavlen.R;
 import com.varmarken.rejseplanen.afgangstavlen.model.Stop;
 
 /**
