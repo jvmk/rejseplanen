@@ -14,5 +14,5 @@
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
     <string name="stop_search_hint">Find stoppested</string>
-
+	<string name="stops_search_error">An error occurred while querying the server for stop information.</string>
 </resources>

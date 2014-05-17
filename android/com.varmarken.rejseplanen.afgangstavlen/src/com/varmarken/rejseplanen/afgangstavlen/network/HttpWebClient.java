@@ -17,12 +17,14 @@ import android.os.AsyncTask;
  */
 public class HttpWebClient<RESULT> extends AsyncTask<Void, Void, RESULT> {
 
-	private final IWebClientCallback<RESULT> callback;
+	private IWebClientCallback<RESULT> callback;
 	private final IInputStreamParser<RESULT> parser;
 	private final URL requestURL;
 
 	private Exception error = null;
-
+	
+	private Object callbackLock = new Object();
+	
 	/**
 	 * Creates an {@link HttpWebClient}.
 	 * 
@@ -70,10 +72,25 @@ public class HttpWebClient<RESULT> extends AsyncTask<Void, Void, RESULT> {
 
 	@Override
 	protected void onPostExecute(RESULT result) {
-		if (this.error == null) {
-			this.callback.onSuccess(result);
-		} else {
-			this.callback.onFailure(this.error);
+		synchronized (this.callbackLock) {
+			if(this.callback == null) {
+				// Do nothing if listener unregistered.
+				return;
+			}
+			if (this.error == null) {
+				this.callback.onSuccess(result);
+			} else {
+				this.callback.onFailure(this.error);
+			}
+		}
+	}
+	
+	/**
+	 * Removes the callback listener, if any.
+	 */
+	public void unregisterCallback() {
+		synchronized(this.callbackLock) {			
+			this.callback = null;
 		}
 	}
 }
