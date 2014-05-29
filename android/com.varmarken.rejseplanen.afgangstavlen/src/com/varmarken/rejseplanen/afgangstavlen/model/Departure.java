@@ -11,18 +11,18 @@ public class Departure {
 	/**
 	 * The bus stop or train station associated with this departure.
 	 */
-	private Stop stop;
+	private final Stop stop;
 
 	/**
 	 * Name of the departure (i.e. the name of the bus line or train number).
 	 */
-	private String name;
+	private final String name;
 
 	/**
 	 * In what direction the journey, that commences with this departure, is
 	 * heading. In most cases this is equal to {@link #finalStop}.
 	 */
-	private String direction;
+	private final String direction;
 
 	/**
 	 * The last stop of the journey that commences with this departure. In most
@@ -30,7 +30,10 @@ public class Departure {
 	 */
 	private String finalStop;
 	
-	public Departure(Stop stop) {
+	public Departure(Stop stop, String name, String direction, String finalStop) {
 		this.stop = stop;
+		this.name = name;
+		this.direction = direction;
+		this.finalStop = finalStop;
 	}
 }
